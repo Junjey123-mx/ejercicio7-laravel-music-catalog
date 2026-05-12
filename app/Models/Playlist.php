@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Playlist extends Model
 {
@@ -18,4 +20,16 @@ class Playlist extends Model
         'is_public'   => 'boolean',
         'total_songs' => 'integer',
     ];
+
+    public function listener(): BelongsTo
+    {
+        return $this->belongsTo(Listener::class);
+    }
+
+    public function songs(): BelongsToMany
+    {
+        return $this->belongsToMany(Song::class, 'playlist_song')
+            ->withPivot(['position', 'added_at'])
+            ->withTimestamps();
+    }
 }

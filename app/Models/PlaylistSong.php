@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PlaylistSong extends Model
 {
@@ -19,4 +20,14 @@ class PlaylistSong extends Model
         'position' => 'integer',
         'added_at' => 'datetime',
     ];
+
+    public function playlist(): BelongsTo
+    {
+        return $this->belongsTo(Playlist::class);
+    }
+
+    public function song(): BelongsTo
+    {
+        return $this->belongsTo(Song::class);
+    }
 }

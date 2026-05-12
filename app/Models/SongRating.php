@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class SongRating extends Model
 {
@@ -18,4 +19,14 @@ class SongRating extends Model
         'rating'   => 'integer',
         'rated_at' => 'datetime',
     ];
+
+    public function song(): BelongsTo
+    {
+        return $this->belongsTo(Song::class);
+    }
+
+    public function listener(): BelongsTo
+    {
+        return $this->belongsTo(Listener::class);
+    }
 }
